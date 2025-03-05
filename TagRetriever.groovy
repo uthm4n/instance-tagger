@@ -41,10 +41,7 @@ def getInstancesWithMissingTags(String missingTag) {
         }.collect { it.id } 
 
         logWithTimestamp("Total instances missing tag '${missingTag}': ${instancesWithoutTag.size()}")
-        return instancesWithoutTag
-    } else {
-        logWithTimestamp("Error fetching instances: ${instanceApi.errors}")
-        return []
+        return instancesWithoutTag ?: logWithTimestamp("Error fetching instances: ${instanceApi.dump()}")
     }
 }
 
