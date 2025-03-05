@@ -38,6 +38,10 @@ def getInstancesWithMissingTags(String missingTagValue) {
                'tags': instance.tags 
            ]
         }
+     println results.findAll { instance ->
+            def tags = instance.tags?.collect { it.value } ?: []
+            return tags.isEmpty() || !tags.contains("Uthman")
+        }.collect { it.id } 
         logWithTimestamp("Total instances retrieved: ${instances.size()}")
 
         def instancesWithoutTag = results.findAll { instance ->
