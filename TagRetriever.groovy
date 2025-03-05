@@ -32,7 +32,7 @@ def getInstancesWithMissingTags(String missingTagValue) {
     def instanceApi = client.callJsonApi(morpheusUrl, "/api/instances?max=1000", null, null, requestOptions, "GET")
     
     if (instanceApi.success) {
-        def results = data.instances.collect { instance ->
+        def results = instanceApi.data.instances.collect { instance ->
            [
                'id': instance.id,
                'tags': instance.tags 
