@@ -46,10 +46,10 @@ def getInstancesWithMissingTags(String missingTagValue) {
 
         def instancesWithoutTag = results.findAll { instance ->
             def tags = instance.tags?.collect { it.value } ?: []
-            return tags.isEmpty() || !tags.contains(missingTag)
+            return tags.isEmpty() || !tags.contains(missingTagValue)
         }.collect { it.id } 
 
-        logWithTimestamp("Total instances missing tag '${missingTag}': ${instancesWithoutTag.size()}")
+        logWithTimestamp("Total instances missing tag '${missingTagValue}': ${instancesWithoutTag.size()}")
         return instancesWithoutTag ?: null
     }
 }
