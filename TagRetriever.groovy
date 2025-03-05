@@ -4,7 +4,7 @@ import org.slf4j.*
 import groovy.util.logging.Slf4j
 import com.morpheus.*
 import com.morpheusdata.core.util.HttpApiClient
-import com.morpheusdata.core.RequestOptions
+import com.morpheusdata.core.util.HttpApiClient.RequestOptions
 import groovy.json.JsonOutput
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
