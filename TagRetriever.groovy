@@ -20,10 +20,10 @@ if (!instance?.tags) {
     logWithTimestamp("INSTANCE TAGS:\r\n${JsonOutput.prettyPrint(JsonOutput.toJson(instance.tags))}\r\n")
 }
 
-def morpheusUrl = morpheus.applianceUrl
-def apiToken = morpheus.getApiAccessToken()
-
 def getInstancesWithMissingTags(String missingTag) {
+    def morpheusUrl = morpheus.applianceUrl
+    def apiToken = morpheus.getApiAccessToken()
+ 
     HttpApiClient client = new HttpApiClient()
     RequestOptions requestOptions = new RequestOptions()
     
