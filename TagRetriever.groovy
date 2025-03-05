@@ -32,25 +32,22 @@ def getInstancesWithMissingTags(String missingTagValue) {
     def instanceApi = client.callJsonApi(morpheusUrl, "/api/instances?max=1000", null, null, requestOptions, "GET")
     
     if (instanceApi.success) {
-        def results = instanceApi.data.instances.collect { instance ->
-           [
-               'id': instance.id,
-               'tags': instance.tags 
-           ]
-        }
-     println results.findAll { instance ->
-            def tags = instance.tags?.collect { it.value } ?: []
-            return tags.isEmpty() || !tags.contains("Uthman")
-        }.collect { it.id } 
+        def instances = instanceApi.data.instances ?: []
         logWithTimestamp("Total instances retrieved: ${instances.size()}")
 
+        def results = instances.collect { instance ->
+               [
+                   'id': instance.id,
+                   'tags': instance.tags ?: [] // Ensure `tags` is always a list
+               ]
+           }
         def instancesWithoutTag = results.findAll { instance ->
-            def tags = instance.tags?.collect { it.value } ?: []
+            def tags = instance.tags.collect { it.value } ?: [] // Extract tag values
             return tags.isEmpty() || !tags.contains(missingTagValue)
-        }.collect { it.id } 
+        }.collect { it.id }
 
         logWithTimestamp("Total instances missing tag '${missingTagValue}': ${instancesWithoutTag.size()}")
-        return instancesWithoutTag ?: null
+        return logWithTimestamp("Results: ${results}\r\n instancesWithoutTag: ${instancesWithoutTag}") 
     }
 }
 
